@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/main_color">
+
+    <ImageButton
+        android:id="@+id/back_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_btn_translucent"
+        android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/btn_right"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_btn_translucent"
+        android:src="@mipmap/abc_ic_menu_more_overflow_mtrl_alpha"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_right_text"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_btn_translucent"
+        android:minWidth="48dp"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/page_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="@string/app_name"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+</RelativeLayout>
