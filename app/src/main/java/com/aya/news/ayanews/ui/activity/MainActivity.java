@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tabHost.addTab(tabHost.newTabSpec(TAG_DISCOVERY).setIndicator(TAG_DISCOVERY), DiscoveryFragment.class, null);
         tabHost.addTab(tabHost.newTabSpec(TAG_PC).setIndicator(TAG_PC), PcFragment.class, null);
 
-        tabHost.setOnTabChangedListener(new  TabHost.OnTabChangeListener() {
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String s) {
                 refreshTabBtn();
@@ -101,11 +101,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             isExit = false;
         }
     };
-
-    public void setCurrentTabByTag(String tag) {
-        tabHost.setCurrentTabByTag(tag);
-    }
-
 
     @Override
     public void onBackPressed() {
