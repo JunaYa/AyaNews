@@ -77,6 +77,8 @@ public class IndexActivity extends AppCompatActivity {
             Glide.with(IndexActivity.this).load(imageUrls[position]).placeholder(R.mipmap.biz_more_menu_t0).into(imageView);
             if (position == (imageUrls.length - 1)) {
                 enter.setVisibility(View.VISIBLE);
+            }else {
+                enter.setVisibility(View.GONE);
             }
             container.addView(imageView);
             return imageView;

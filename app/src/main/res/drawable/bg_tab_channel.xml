@@ -4,7 +4,7 @@
         <layer-list>
             <item>
                 <shape android:shape="rectangle">
-                    <stroke android:width="2dp" android:color="#@color/main_color" />
+                    <stroke android:width="2dp" android:color="@color/main_color" />
                 </shape>
             </item>
             <item android:bottom="2dp">
@@ -15,6 +15,7 @@
         </layer-list>
 
     </item>
+
     <item android:state_checked="false">
         <layer-list>
             <item>
@@ -27,8 +28,8 @@
 
         </layer-list>
 
-
     </item>
+
     <item android:state_selected="true">
         <layer-list>
             <item>
@@ -46,6 +47,7 @@
         </layer-list>
 
     </item>
+
     <item android:state_selected="false">
         <layer-list>
             <item>
@@ -63,5 +65,4 @@
         </layer-list>
 
     </item>
-    <item android:drawable="#FAFAFA"></item>
 </selector>

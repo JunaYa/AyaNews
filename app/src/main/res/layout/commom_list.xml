@@ -3,16 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<SwipeRefreshLayout
-    android:id="@+id/swiperefreshlayout"
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ListView
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/divider_color"
         android:dividerHeight="0.1dp"
         android:background="@color/main_bg_color"
         android:listSelector="@drawable/bg_btn_translucent"></ListView>
-</SwipeRefreshLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
