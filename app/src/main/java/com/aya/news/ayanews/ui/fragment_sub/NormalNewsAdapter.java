@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.aya.news.ayanews.R;
 import com.aya.news.ayanews.model.News;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class NormalNewsAdapter extends BaseAdapter {
     private ArrayList<News> newses;
     private Context context;
     private LayoutInflater inflater;
+
     public NormalNewsAdapter(ArrayList<News> newses, Context context) {
         this.newses = newses;
         this.context = context;
@@ -44,18 +46,26 @@ public class NormalNewsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.item_news,null);
-            holder.img = (ImageView)convertView.findViewById(R.id.iv_left);
-            holder.title = (TextView)convertView.findViewById(R.id.tv_title);
-            holder.des = (TextView)convertView.findViewById(R.id.tv_des);
+            convertView = inflater.inflate(R.layout.item_news, null);
+            holder.img = (ImageView) convertView.findViewById(R.id.iv_left);
+            holder.title = (TextView) convertView.findViewById(R.id.tv_title);
+            holder.des = (TextView) convertView.findViewById(R.id.tv_des);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
+
+        News news = newses.get(position);
+        Glide.with(context).load(news.getUrl()).placeholder(R.mipmap.biz_pread_adapter_bg_default).into(holder.img);
+        holder.title.setText(news.getTitle());
+        holder.des.setText(news.getDigest());
         return convertView;
     }
 
-    private class ViewHolder{
-        ImageView img ;
+    private class ViewHolder {
+        ImageView img;
         TextView title;
         TextView des;
     }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,6 +18,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.aya.news.ayanews.R;
 import com.aya.news.ayanews.config.Const;
+import com.aya.news.ayanews.https.ResponseListener;
+import com.aya.news.ayanews.https.VolleyUtil;
 import com.aya.news.ayanews.model.News;
 import com.aya.news.ayanews.ui.base.BaseFragment;
 
@@ -32,18 +35,28 @@ public class NormalNewsFragment extends BaseFragment implements SwipeRefreshLayo
     private ListView listView;
     private NormalNewsAdapter mAdapter;
     private ArrayList<News> newses = new ArrayList<>();
-
     private RequestQueue mRequestQueue;
-
     private String url;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRequestQueue = new Volley().newRequestQueue(getActivity());
+        mRequestQueue = new Volley().newRequestQueue(getContext());
         mAdapter = new NormalNewsAdapter(newses, getActivity());
         url = getArguments().getString(Const.ARG_CHANNEL_URL);
-        Log.d("aya",url);
+
+        JsonObjectRequest request = new JsonObjectRequest(url, null, new ResponseListener<JSONObject>() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("aya", error.getMessage());
+            }
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("aya", response.toString());
+            }
+        });
+        mRequestQueue.add(request);
     }
 
     @Override

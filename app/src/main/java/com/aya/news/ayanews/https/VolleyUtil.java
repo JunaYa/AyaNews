@@ -39,6 +39,11 @@ public class VolleyUtil {
         VolleyUtil.getRequestQueue().add(request);
     }
 
+    public static void getObject(String baseUrl,ResponseListener listener){
+        GetObjectRequest request = new GetObjectRequest(baseUrl ,listener);
+        VolleyUtil.getRequestQueue().add(request);
+    }
+
     public static void postObject(String url, Map<String, String> params, Type type, ResponseListener listener) {
         PostObjectRequest request = new PostObjectRequest(url, params, type, listener);
         VolleyUtil.getRequestQueue().add(request);

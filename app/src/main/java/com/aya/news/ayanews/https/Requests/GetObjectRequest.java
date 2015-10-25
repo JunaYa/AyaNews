@@ -30,6 +30,12 @@ public class GetObjectRequest<T> extends Request<T> {
         mClazz = type;
     }
 
+    public GetObjectRequest(String url,ResponseListener listener){
+        super(Method.GET,url,listener);
+        this.mListener = listener;
+        mGson = new Gson();
+    }
+
 
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
