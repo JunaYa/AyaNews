@@ -1,24 +1,21 @@
 package com.aya.news.ayanews.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.CircularPropagation;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aya.news.ayanews.R;
-import com.aya.news.ayanews.ui.base.BaseActivity;
 import com.bumptech.glide.Glide;
 import com.viewpagerindicator.CirclePageIndicator;
 
-import java.util.ArrayList;
 
 /**
  * Created by Single on 2015/10/22.
@@ -45,7 +42,7 @@ public class IndexActivity extends AppCompatActivity {
             "http://pic.58pic.com/58pic/12/64/27/55U58PICrdX.jpg"};
 
     private TextView enter;
-
+    private  SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,12 +58,15 @@ public class IndexActivity extends AppCompatActivity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sp= getSharedPreferences("app_param",Context.MODE_PRIVATE);
+                sp.edit().putInt("user",1).commit();
                 Intent intent = new Intent(IndexActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
     }
+
 
     private class IndexImagesAdapter extends PagerAdapter {
         @Override

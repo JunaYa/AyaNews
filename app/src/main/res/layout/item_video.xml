@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/frame_cover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/video"
+                android:layout_width="match_parent"
+                android:layout_height="180sp"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/play_icon"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/video_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/frame_cover"
+            android:paddingLeft="12sp"
+            android:paddingTop="8sp"
+            android:text="秋准来了" />
+
+        <TextView
+            android:id="@+id/video_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/video_title"
+            android:drawableLeft="@mipmap/biz_video_list_item_time_icon"
+            android:drawablePadding="4sp"
+            android:paddingBottom="8sp"
+            android:paddingLeft="12sp"
+            android:paddingTop="8sp"
+            android:text="2;14"
+            android:textColor="@color/text_color_gray" />
+
+        <TextView
+            android:id="@+id/video_play_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/video_title"
+            android:layout_toRightOf="@+id/video_length"
+            android:drawableLeft="@mipmap/biz_video_list_item_play_icon_small"
+            android:drawablePadding="4sp"
+            android:paddingBottom="8sp"
+            android:paddingLeft="12sp"
+            android:paddingTop="8sp"
+            android:text="2134"
+            android:textColor="@color/text_color_gray" />
+
+        <TextView
+            android:id="@+id/video_reply_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/video_title"
+            android:drawablePadding="4sp"
+            android:drawableRight="@mipmap/biz_video_list_item_tie_arrow_icon"
+            android:paddingBottom="8sp"
+            android:paddingRight="12sp"
+            android:paddingTop="8sp"
+            android:text="2134跟帖"
+            android:textColor="@color/text_color_gray" />
+    </RelativeLayout>
+</LinearLayout>

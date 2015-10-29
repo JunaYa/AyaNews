@@ -1,4 +1,4 @@
-package com.aya.news.ayanews.ui.fragment_sub;
+package com.aya.news.ayanews.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -52,15 +52,19 @@ public class NormalNewsAdapter extends BaseAdapter {
             holder.img = (ImageView) convertView.findViewById(R.id.iv_left);
             holder.title = (TextView) convertView.findViewById(R.id.tv_title);
             holder.des = (TextView) convertView.findViewById(R.id.tv_des);
+            holder.reply = (TextView) convertView.findViewById(R.id.tvReply);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         News news = newses.get(position);
-        Glide.with(context).load(news.getUrl()).placeholder(R.mipmap.biz_pread_adapter_bg_default).into(holder.img);
+        Glide.with(context).load(news.getImgsrc())
+                .placeholder(R.mipmap.biz_pread_adapter_bg_default)
+                .into(holder.img);
         holder.title.setText(news.getTitle());
         holder.des.setText(news.getDigest());
+        holder.reply.setText(news.getReplyCount() + "");
         return convertView;
     }
 
@@ -68,5 +72,6 @@ public class NormalNewsAdapter extends BaseAdapter {
         ImageView img;
         TextView title;
         TextView des;
+        TextView reply;
     }
 }

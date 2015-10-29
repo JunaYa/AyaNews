@@ -1,59 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     android:padding="5dp">
 
     <ImageView
         android:id="@+id/iv_left"
-        android:layout_width="100dp"
-        android:layout_height="74dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/vpi__tab_indicator" />
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_weight="2"
+        android:scaleType="fitXY" />
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:layout_marginLeft="8dp"
-        android:layout_toRightOf="@+id/iv_left">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:text="TextView"
-            android:textColor="#333333"
-            android:textSize="16sp" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_mid_size" />
 
         <TextView
             android:id="@+id/tv_des"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_title"
-            android:layout_marginTop="5dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="2"
-            android:singleLine="false"
-            android:text="TextView"
-            android:textColor="#9A9A9A"
-
-            />
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_mid_size" />
 
         <TextView
             android:id="@+id/tvReply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tvDigest"
-            android:layout_alignParentRight="true"
-            android:text="TextView"
-            android:textColor="#9A9A9A" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_mid_size" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

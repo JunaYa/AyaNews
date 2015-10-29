@@ -12,7 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.aya.news.ayanews.R;
-import com.aya.news.ayanews.adapter.FragmentAdapter;
+import com.aya.news.ayanews.ui.adapter.FragmentAdapter;
 import com.aya.news.ayanews.config.Const;
 import com.aya.news.ayanews.model.Channel;
 import com.aya.news.ayanews.model.ChannelData;
@@ -34,10 +34,10 @@ public class NewsFragment extends BaseFragment {
     private ArrayList<Fragment> fragments = new ArrayList<>();
 
     @Override
-    public void onCreate( Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new FragmentAdapter(super.getActivity().getSupportFragmentManager(), fragments);
         initFragment();
+        mAdapter = new FragmentAdapter(super.getActivity().getSupportFragmentManager(), fragments);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class NewsFragment extends BaseFragment {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_news, container, false);
 
-            hsView = (HorizontalScrollView)findViewById(R.id.hsView);
+            hsView = (HorizontalScrollView) findViewById(R.id.hsView);
             channelTabGroup = (RadioGroup) findViewById(R.id.tab_channel);
             initChannelTab(inflater);
             viewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -78,25 +78,27 @@ public class NewsFragment extends BaseFragment {
     private void initChannelTab(LayoutInflater inflater) {
         ArrayList<Channel> channels = (ArrayList<Channel>) ChannelData.getSelectedChannel();
         for (int i = 0; i < channels.size(); i++) {
-            RadioButton radioButton = (RadioButton)inflater.inflate(R.layout.item_tab_channel,null);
+            RadioButton radioButton = (RadioButton) inflater.inflate(R.layout.item_tab_channel, null);
             radioButton.setId(i);
             radioButton.setText(channels.get(i).getName());
             RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT);
             channelTabGroup.addView(radioButton, params);
         }
+        ((RadioButton) channelTabGroup.getChildAt(0)).setChecked(true);
     }
 
-    private void setTab(int idx){
-        RadioButton radioButton = (RadioButton)channelTabGroup.getChildAt(idx);
+    private void setTab(int idx) {
+        RadioButton radioButton = (RadioButton) channelTabGroup.getChildAt(idx);
         radioButton.setChecked(true);
         int left = radioButton.getLeft();
         int width = radioButton.getWidth();
         DisplayMetrics metrics = new DisplayMetrics();
         super.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int screenWidth = metrics.widthPixels;
-        int len = left + width/2 - screenWidth/2;
-        hsView.smoothScrollTo(len,0);
+        int len = left + width / 2 - screenWidth / 2;
+        hsView.smoothScrollTo(len, 0);
     }
+
     private void initFragment() {
         ArrayList<Channel> channels = (ArrayList<Channel>) ChannelData.getSelectedChannel();
         for (int i = 0; i < channels.size(); i++) {

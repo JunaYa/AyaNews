@@ -4,8 +4,40 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="视频"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/main_color"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/video"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/bg_tab_via"
+            android:button="@null"
+            android:checked="true"
+            android:padding="4dp"
+            android:text="视频"
+            android:textColor="@color/tab_via_text_color"
+            android:textSize="@dimen/text_mid_size" />
+
+        <RadioButton
+            android:id="@+id/broadcasting"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bg_tab_via"
+            android:button="@null"
+            android:padding="4dp"
+            android:text="电台"
+            android:textColor="@color/tab_via_text_color"
+            android:textSize="@dimen/text_mid_size" />
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 </LinearLayout>
