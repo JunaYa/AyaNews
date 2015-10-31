@@ -63,6 +63,7 @@ public class NormalNewsFragment extends BaseFragment implements SwipeRefreshLayo
                             Gson gson = new Gson();
                             ArrayList<News> newsList = gson.fromJson(body, new TypeToken<ArrayList<News>>() {
                             }.getType());
+                            newses.clear();
                             newses.addAll(newsList);
                             mAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {

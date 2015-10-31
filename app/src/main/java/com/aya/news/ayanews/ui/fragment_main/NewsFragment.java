@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by Single on 2015/10/22.
  */
-public class NewsFragment extends BaseFragment {
+public class NewsFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
 
     private HorizontalScrollView hsView;
     private RadioGroup channelTabGroup;
@@ -48,24 +49,19 @@ public class NewsFragment extends BaseFragment {
 
             hsView = (HorizontalScrollView) findViewById(R.id.hsView);
             channelTabGroup = (RadioGroup) findViewById(R.id.tab_channel);
+            channelTabGroup.setOnCheckedChangeListener(this);
             initChannelTab(inflater);
             viewPager = (ViewPager) findViewById(R.id.view_pager);
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
                 }
-
                 @Override
                 public void onPageSelected(int position) {
                     setTab(position);
-                    viewPager.setCurrentItem(position);
                 }
-
                 @Override
                 public void onPageScrollStateChanged(int state) {
-
                 }
             });
             viewPager.setAdapter(mAdapter);
@@ -116,5 +112,10 @@ public class NewsFragment extends BaseFragment {
                 fragments.add(normalNewsFragment);
             }
         }
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+//        viewPager.setCurrentItem(checkedId);
     }
 }

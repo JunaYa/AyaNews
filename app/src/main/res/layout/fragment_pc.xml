@@ -4,8 +4,62 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="我的"/>
+    <include layout="@layout/include_header" />
+
+    <LinearLayout
+        android:id="@+id/my_map"
+        style="@style/vertical_item">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的地图"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_mid_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/map_gps"
+        style="@style/vertical_item">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LocationGPS-Map"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_mid_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/map_network"
+        style="@style/vertical_item">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LocationNetwork-Map"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_mid_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/map_sensor_source"
+        style="@style/vertical_item">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LocationSensorSource-Map"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_mid_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/map_source"
+        style="@style/vertical_item">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LocationSource-Map"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_mid_size" />
+    </LinearLayout>
+
 </LinearLayout>

@@ -8,6 +8,7 @@
     <dimen name="top_margin">16dp</dimen>
     <dimen name="bottom_margin">16dp</dimen>
 
+    <dimen name="text_min_min_size">12sp</dimen>
     <dimen name="text_min_size">14sp</dimen>
     <dimen name="text_mid_size">16sp</dimen>
     <dimen name="text_max_size">18sp</dimen>

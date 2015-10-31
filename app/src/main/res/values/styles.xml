@@ -15,4 +15,15 @@
         <item name="android:button">@null</item>
         <item name="android:layout_weight">1.0</item>
     </style>
+    <style name="vertical_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:background">@drawable/bg_vertical_item</item>
+        <item name="android:orientation">horizontal</item>
+
+    </style>
 </resources>

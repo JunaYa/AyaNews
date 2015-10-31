@@ -83,13 +83,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case 4: {
-                tabDiscovery.setChecked(true);
-                break;
-            }
-            case 5: {
                 tabPc.setChecked(true);
                 break;
             }
+
         }
     }
 
