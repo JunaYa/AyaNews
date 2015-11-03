@@ -14,6 +14,7 @@ import com.aya.news.ayanews.ui.activity.location.LocationGPSActivity;
 import com.aya.news.ayanews.ui.activity.location.LocationNetworkActivity;
 import com.aya.news.ayanews.ui.activity.location.LocationSensorSourceActivity;
 import com.aya.news.ayanews.ui.activity.location.LocationSourceActivity;
+import com.aya.news.ayanews.ui.activity.location.MarkerMapActivity;
 import com.aya.news.ayanews.ui.base.BaseFragment;
 
 
@@ -34,6 +35,7 @@ public class PcFragment extends BaseFragment implements View.OnClickListener {
             findViewById(R.id.map_network).setOnClickListener(this);
             findViewById(R.id.map_sensor_source).setOnClickListener(this);
             findViewById(R.id.map_source).setOnClickListener(this);
+            findViewById(R.id.map_marker).setOnClickListener(this);
 
             setHeaderTitle("我的田地");
         }
@@ -58,6 +60,9 @@ public class PcFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.map_source:
                 startActivity(new Intent(getActivity(), LocationSourceActivity.class));
+                break;
+            case R.id.map_marker:
+                startActivity(new Intent(getActivity(), MarkerMapActivity.class));
                 break;
         }
     }
