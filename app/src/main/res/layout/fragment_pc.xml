@@ -9,6 +9,7 @@
     <LinearLayout
         android:id="@+id/my_map"
         style="@style/vertical_item">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,6 +21,7 @@
     <LinearLayout
         android:id="@+id/map_gps"
         style="@style/vertical_item">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,6 +33,7 @@
     <LinearLayout
         android:id="@+id/map_network"
         style="@style/vertical_item">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,6 +46,7 @@
     <LinearLayout
         android:id="@+id/map_sensor_source"
         style="@style/vertical_item">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,10 +58,23 @@
     <LinearLayout
         android:id="@+id/map_source"
         style="@style/vertical_item">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="LocationSource-Map"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_mid_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/map_marker"
+        style="@style/vertical_item">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的地图有覆盖物"
             android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_mid_size" />
     </LinearLayout>
