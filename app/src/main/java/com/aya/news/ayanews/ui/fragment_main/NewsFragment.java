@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by Single on 2015/10/22.
  */
-public class NewsFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
+public class NewsFragment extends Fragment implements RadioGroup.OnCheckedChangeListener {
 
     private HorizontalScrollView hsView;
     private RadioGroup channelTabGroup;
@@ -34,6 +34,7 @@ public class NewsFragment extends BaseFragment implements RadioGroup.OnCheckedCh
     private FragmentAdapter mAdapter;
     private ArrayList<Fragment> fragments = new ArrayList<>();
 
+    private View rootView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,15 +44,14 @@ public class NewsFragment extends BaseFragment implements RadioGroup.OnCheckedCh
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = super.onCreateView(inflater, container, savedInstanceState);
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_news, container, false);
 
-            hsView = (HorizontalScrollView) findViewById(R.id.hsView);
-            channelTabGroup = (RadioGroup) findViewById(R.id.tab_channel);
+            hsView = (HorizontalScrollView) rootView.findViewById(R.id.hsView);
+            channelTabGroup = (RadioGroup) rootView.findViewById(R.id.tab_channel);
             channelTabGroup.setOnCheckedChangeListener(this);
             initChannelTab(inflater);
-            viewPager = (ViewPager) findViewById(R.id.view_pager);
+            viewPager = (ViewPager) rootView.findViewById(R.id.view_pager);
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -67,6 +67,10 @@ public class NewsFragment extends BaseFragment implements RadioGroup.OnCheckedCh
             viewPager.setAdapter(mAdapter);
             viewPager.setOffscreenPageLimit(2);
             viewPager.setCurrentItem(0);
+        }
+        ViewGroup parent = (ViewGroup) rootView.getParent();
+        if (parent != null){
+            parent.removeView(rootView);
         }
         return rootView;
     }

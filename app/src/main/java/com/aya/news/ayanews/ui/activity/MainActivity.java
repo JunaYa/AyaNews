@@ -16,6 +16,7 @@ import com.aya.news.ayanews.ui.fragment_main.NewsFragment;
 import com.aya.news.ayanews.ui.fragment_main.PcFragment;
 import com.aya.news.ayanews.ui.fragment_main.ReadFragment;
 import com.aya.news.ayanews.ui.fragment_main.VaFragment;
+import com.aya.news.ayanews.ui.fragment_sub.VideoFragment;
 
 /**
  * Created by Single on 2015/10/22.
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         tabHost.addTab(tabHost.newTabSpec(TAG_NEWS).setIndicator(TAG_NEWS), NewsFragment.class, null);
         tabHost.addTab(tabHost.newTabSpec(TAG_READ).setIndicator(TAG_READ), ReadFragment.class, null);
-        tabHost.addTab(tabHost.newTabSpec(TAG_VA).setIndicator(TAG_VA), VaFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec(TAG_VA).setIndicator(TAG_VA), VideoFragment.class, null);
         tabHost.addTab(tabHost.newTabSpec(TAG_DISCOVERY).setIndicator(TAG_DISCOVERY), DiscoveryFragment.class, null);
         tabHost.addTab(tabHost.newTabSpec(TAG_PC).setIndicator(TAG_PC), PcFragment.class, null);
 

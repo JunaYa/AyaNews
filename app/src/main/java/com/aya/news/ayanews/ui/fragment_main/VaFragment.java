@@ -19,12 +19,14 @@ import java.util.ArrayList;
 /**
  * Created by Single on 2015/10/23.
  */
-public class VaFragment extends BaseFragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class VaFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private FragmentAdapter mAdapter;
     private ArrayList<Fragment> fragments = new ArrayList<>();
 
     private ViewPager viewPager;
     private RadioButton rbVideo, rbBroadcasting;
+
+    private View rootView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,20 +41,23 @@ public class VaFragment extends BaseFragment implements View.OnClickListener, Vi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = super.onCreateView(inflater, container, savedInstanceState);
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_va, container, false);
 
-            rbVideo = (RadioButton) findViewById(R.id.video);
-            rbBroadcasting = (RadioButton) findViewById(R.id.broadcasting);
+            rbVideo = (RadioButton) rootView.findViewById(R.id.video);
+            rbBroadcasting = (RadioButton) rootView.findViewById(R.id.broadcasting);
             rbVideo.setOnClickListener(this);
             rbBroadcasting.setOnClickListener(this);
-            viewPager = (ViewPager) findViewById(R.id.view_pager);
+            viewPager = (ViewPager) rootView.findViewById(R.id.view_pager);
             viewPager.addOnPageChangeListener(this);
             viewPager.setAdapter(mAdapter);
-            viewPager.setOffscreenPageLimit(2);
             viewPager.setCurrentItem(0);
         }
+        ViewGroup parent = (ViewGroup) rootView.getParent();
+        if (parent != null) {
+            parent.removeView(rootView);
+        }
+
         return rootView;
     }
 

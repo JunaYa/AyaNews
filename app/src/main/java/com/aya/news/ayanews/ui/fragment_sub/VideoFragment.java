@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -17,8 +18,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.aya.news.ayanews.R;
+import com.aya.news.ayanews.common.ToastUtils;
 import com.aya.news.ayanews.config.Urls;
-import com.aya.news.ayanews.https.ResponseListener;
 import com.aya.news.ayanews.model.Video;
 import com.aya.news.ayanews.ui.base.BaseFragment;
 import com.bumptech.glide.Glide;
@@ -40,6 +41,9 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
     private ListView listView;
     private VideoAdapter mAdapter;
     private ArrayList<Video> videoList = new ArrayList<>();
+    private int pageNo = 1;
+    private boolean isGetMore = false;
+    private View listFooterView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,9 +52,46 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
         mRequestQueue = Volley.newRequestQueue(getActivity());
     }
 
-    private void loadDate() {
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootView = super.onCreateView(inflater, container, savedInstanceState);
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_video_list, container, false);
+
+            refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+            refreshLayout.setOnRefreshListener(this);
+            listView = (ListView) findViewById(R.id.list_view);
+            listFooterView = inflater.inflate(R.layout.list_footer_load_more, listView, false);
+            listView.addFooterView(listFooterView);
+            listView.setAdapter(mAdapter);
+            listView.removeFooterView(listFooterView);
+            listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                }
+
+                @Override
+                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                    if (firstVisibleItem + visibleItemCount >= totalItemCount && totalItemCount > 0) {
+                        onGetMore();
+                    }
+                }
+            });
+            mAdapter.PlayOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtils.show(getActivity(),"play");
+                }
+            });
+        }
+        return rootView;
+    }
+
+    private void loadDate(String url) {
         refreshLayout.setRefreshing(false);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Urls.VIDEO_URL, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -63,6 +104,13 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                if (isGetMore) {
+                    isGetMore = false;
+                    refreshLayout.setEnabled(true);
+                    listView.removeFooterView(listFooterView);
+                } else {
+                    refreshLayout.setRefreshing(false);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -73,18 +121,14 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
         mRequestQueue.add(jsonObjectRequest);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = super.onCreateView(inflater, container, savedInstanceState);
-        if (rootView == null) {
-            rootView = inflater.inflate(R.layout.commom_list, container, false);
-
-            refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-            refreshLayout.setOnRefreshListener(this);
-            listView = (ListView) findViewById(R.id.list_view);
-            listView.setAdapter(mAdapter);
-        }
-        return rootView;
+    private void onGetMore() {
+        if (refreshLayout.isRefreshing() || isGetMore) return;
+        isGetMore = true;
+        refreshLayout.setEnabled(false);
+        listView.addFooterView(listFooterView);
+        pageNo += 1;
+        String url = Urls.getUrl(Urls.VIDEO_URL, pageNo);
+        loadDate(url);
     }
 
     @Override
@@ -101,7 +145,7 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     @Override
     public void onRefresh() {
-        loadDate();
+        loadDate(Urls.getUrl(Urls.VIDEO_URL, pageNo));
     }
 
     private class VideoAdapter extends BaseAdapter {
@@ -141,6 +185,7 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
                 holder.video = (ImageView) convertView.findViewById(R.id.video);
                 holder.play_icon = (ImageView) convertView.findViewById(R.id.play_icon);
                 holder.title = (TextView) convertView.findViewById(R.id.video_title);
+                holder.describe = (TextView) convertView.findViewById(R.id.video_des);
                 holder.playCount = (TextView) convertView.findViewById(R.id.video_play_count);
                 holder.replyCount = (TextView) convertView.findViewById(R.id.video_reply_count);
                 holder.videoLength = (TextView) convertView.findViewById(R.id.video_length);
@@ -153,8 +198,9 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
             Glide.with(getActivity()).load(video.getCover()).placeholder(R.mipmap.biz_pread_adapter_bg_default).into(holder.video);
             holder.play_icon.setOnClickListener(iconOnClickListener);
             holder.title.setText(video.getTitle());
+            holder.describe.setText(video.getDescription());
             holder.playCount.setText(video.getPlayCount());
-            holder.replyCount.setText(video.getReplyCount());
+            holder.replyCount.setText(video.getReplyCount() +"跟帖");
             holder.videoLength.setText(video.getLength());
             return convertView;
         }
@@ -164,6 +210,7 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
         ImageView video;
         ImageView play_icon;
         TextView title;
+        TextView describe;
         TextView playCount;
         TextView replyCount;
         TextView videoLength;

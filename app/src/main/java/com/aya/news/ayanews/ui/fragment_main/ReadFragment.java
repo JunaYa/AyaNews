@@ -12,12 +12,17 @@ import com.aya.news.ayanews.ui.base.BaseFragment;
 /**
  * Created by Single on 2015/10/23.
  */
-public class ReadFragment extends BaseFragment {
+public class ReadFragment extends Fragment {
+    private View rootView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = super.onCreateView(inflater, container, savedInstanceState);
-        if (rootView == null){
-            rootView = inflater.inflate(R.layout.fragment_read,container,false);
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_read, container, false);
+        }
+        ViewGroup parent = (ViewGroup) rootView.getParent();
+        if (parent != null) {
+            parent.removeView(rootView);
         }
         return rootView;
     }
