@@ -1,12 +1,14 @@
 package com.aya.news.ayanews.ui.fragment_sub;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -19,8 +21,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.aya.news.ayanews.R;
 import com.aya.news.ayanews.common.ToastUtils;
+import com.aya.news.ayanews.config.Const;
 import com.aya.news.ayanews.config.Urls;
 import com.aya.news.ayanews.model.Video;
+import com.aya.news.ayanews.ui.activity.VideoPlay2Activity;
 import com.aya.news.ayanews.ui.base.BaseFragment;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -30,6 +34,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import io.vov.vitamio.widget.VideoView;
+
 
 /**
  * Created by Single on 2015/10/29.
@@ -45,6 +52,8 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
     private boolean isGetMore = false;
     private View listFooterView;
 
+    private VideoView videoView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,15 +61,14 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
         mRequestQueue = Volley.newRequestQueue(getActivity());
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = super.onCreateView(inflater, container, savedInstanceState);
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_video_list, container, false);
-
             refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
             refreshLayout.setOnRefreshListener(this);
+            videoView = (VideoView) findViewById(R.id.surface_view);
             listView = (ListView) findViewById(R.id.list_view);
             listFooterView = inflater.inflate(R.layout.list_footer_load_more, listView, false);
             listView.addFooterView(listFooterView);
@@ -82,11 +90,37 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
             mAdapter.PlayOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtils.show(getActivity(),"play");
+                    Object object = v.getTag();
+                    if (object instanceof Video) {
+                        Video video = (Video) object;
+                        String videoUrl = video.getMp4_url();
+                        Intent intent = new Intent(getActivity(), VideoPlay2Activity.class);
+                        intent.putExtra(Const.ARG_VIDEO_URL, videoUrl);
+                        startActivity(intent);
+                    }
                 }
             });
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                }
+            });
+
         }
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(true);
+                onRefresh();
+            }
+        });
     }
 
     private void loadDate(String url) {
@@ -131,17 +165,6 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
         loadDate(url);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        refreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                refreshLayout.setRefreshing(true);
-                onRefresh();
-            }
-        });
-    }
 
     @Override
     public void onRefresh() {
@@ -182,7 +205,8 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
             if (convertView == null) {
                 holder = new ViewHolder();
                 convertView = inflater.inflate(R.layout.item_video, null);
-                holder.video = (ImageView) convertView.findViewById(R.id.video);
+                holder.video_img = (ImageView) convertView.findViewById(R.id.video);
+                holder.video_view = (VideoView) convertView.findViewById(R.id.video_view);
                 holder.play_icon = (ImageView) convertView.findViewById(R.id.play_icon);
                 holder.title = (TextView) convertView.findViewById(R.id.video_title);
                 holder.describe = (TextView) convertView.findViewById(R.id.video_des);
@@ -195,19 +219,25 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
             }
 
             Video video = videoList.get(position);
-            Glide.with(getActivity()).load(video.getCover()).placeholder(R.mipmap.biz_pread_adapter_bg_default).into(holder.video);
-            holder.play_icon.setOnClickListener(iconOnClickListener);
+            Glide.with(getActivity()).load(video.getCover()).placeholder(R.mipmap.biz_pread_adapter_bg_default).into(holder.video_img);
+
+            if (iconOnClickListener != null) {
+                holder.play_icon.setTag(video);
+                holder.play_icon.setOnClickListener(iconOnClickListener);
+            }
+
             holder.title.setText(video.getTitle());
             holder.describe.setText(video.getDescription());
             holder.playCount.setText(video.getPlayCount());
-            holder.replyCount.setText(video.getReplyCount() +"跟帖");
+            holder.replyCount.setText(video.getReplyCount() + "跟帖");
             holder.videoLength.setText(video.getLength());
             return convertView;
         }
     }
 
     private class ViewHolder {
-        ImageView video;
+        ImageView video_img;
+        VideoView video_view;
         ImageView play_icon;
         TextView title;
         TextView describe;

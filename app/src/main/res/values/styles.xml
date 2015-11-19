@@ -26,4 +26,9 @@
         <item name="android:orientation">horizontal</item>
 
     </style>
+
+    <style name="InfoPanel_Container">
+        <item name="android:background">@color/mediacontroller_bg</item>
+    </style>
+
 </resources>

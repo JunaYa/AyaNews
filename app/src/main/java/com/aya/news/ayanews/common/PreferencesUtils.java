@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 /**
  * Created by Single on 2015/11/2.
  */
-public class PreferencesUtils  {
+public class PreferencesUtils {
     public static String PREFERENCE_NAME = "AndroidCommon";
 
     private PreferencesUtils() {
@@ -28,7 +28,7 @@ public class PreferencesUtils  {
     }
 
     public static String getString(Context context, String key) {
-        return getString(context, key, (String)null);
+        return getString(context, key, (String) null);
     }
 
     public static String getString(Context context, String key, String defaultValue) {

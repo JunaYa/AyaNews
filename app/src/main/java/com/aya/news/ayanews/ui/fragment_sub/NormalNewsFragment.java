@@ -80,22 +80,20 @@ public class NormalNewsFragment extends Fragment implements SwipeRefreshLayout.O
 
                 @Override
                 public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                        Log.d("aya", firstVisibleItem + " + " + visibleItemCount + " = " + totalItemCount);
                     if (firstVisibleItem + visibleItemCount >= totalItemCount && totalItemCount > 0) {
-                        Log.d("aya","----"+ firstVisibleItem + " + " + visibleItemCount + " = " + totalItemCount);
                         onGetMore();
                     }
                 }
             });
+
+            Log.d("aya", "getScrollY() = " + listView.getScrollY() + "getScrollX() = " + listView.getScrollX());
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
         if (parent != null) {
             parent.removeView(rootView);
         }
-
         return rootView;
     }
-
 
     @Override
     public void onRefresh() {
@@ -157,7 +155,6 @@ public class NormalNewsFragment extends Fragment implements SwipeRefreshLayout.O
         isGetMore = true;
         refreshLayout.setEnabled(false);
         pageNo = pageNo + 1;
-        Log.d("aya", "pageNo = " + pageNo);
         loadData();
     }
 }

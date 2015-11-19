@@ -10,12 +10,6 @@ import android.view.ViewGroup;
 
 import com.aya.news.ayanews.R;
 import com.aya.news.ayanews.ui.activity.MapActivity;
-import com.aya.news.ayanews.ui.activity.location.LocationGPSActivity;
-import com.aya.news.ayanews.ui.activity.location.LocationNetworkActivity;
-import com.aya.news.ayanews.ui.activity.location.LocationSensorSourceActivity;
-import com.aya.news.ayanews.ui.activity.location.LocationSourceActivity;
-import com.aya.news.ayanews.ui.base.BaseFragment;
-
 
 /**
  * Created by Single on 2015/10/23.
@@ -52,16 +46,12 @@ public class PcFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), MapActivity.class));
                 break;
             case R.id.map_gps:
-                startActivity(new Intent(getActivity(), LocationGPSActivity.class));
                 break;
             case R.id.map_network:
-                startActivity(new Intent(getActivity(), LocationNetworkActivity.class));
                 break;
             case R.id.map_sensor_source:
-                startActivity(new Intent(getActivity(), LocationSensorSourceActivity.class));
                 break;
             case R.id.map_source:
-                startActivity(new Intent(getActivity(), LocationSourceActivity.class));
                 break;
 
         }

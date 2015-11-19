@@ -35,6 +35,7 @@ public class NewsFragment extends Fragment implements RadioGroup.OnCheckedChange
     private ArrayList<Fragment> fragments = new ArrayList<>();
 
     private View rootView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,18 +49,20 @@ public class NewsFragment extends Fragment implements RadioGroup.OnCheckedChange
             rootView = inflater.inflate(R.layout.fragment_news, container, false);
 
             hsView = (HorizontalScrollView) rootView.findViewById(R.id.hsView);
+            viewPager = (ViewPager) rootView.findViewById(R.id.view_pager);
             channelTabGroup = (RadioGroup) rootView.findViewById(R.id.tab_channel);
             channelTabGroup.setOnCheckedChangeListener(this);
             initChannelTab(inflater);
-            viewPager = (ViewPager) rootView.findViewById(R.id.view_pager);
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 }
+
                 @Override
                 public void onPageSelected(int position) {
                     setTab(position);
                 }
+
                 @Override
                 public void onPageScrollStateChanged(int state) {
                 }
@@ -69,10 +72,15 @@ public class NewsFragment extends Fragment implements RadioGroup.OnCheckedChange
             viewPager.setCurrentItem(0);
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
-        if (parent != null){
+        if (parent != null) {
             parent.removeView(rootView);
         }
         return rootView;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
     }
 
     private void initChannelTab(LayoutInflater inflater) {
@@ -120,6 +128,6 @@ public class NewsFragment extends Fragment implements RadioGroup.OnCheckedChange
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-//        viewPager.setCurrentItem(checkedId);
+        viewPager.setCurrentItem(checkedId);
     }
 }
