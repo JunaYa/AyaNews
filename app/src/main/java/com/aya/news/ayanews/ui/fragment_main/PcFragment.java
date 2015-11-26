@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aya.news.ayanews.R;
+import com.aya.news.ayanews.ui.activity.FriendActivity;
 import com.aya.news.ayanews.ui.activity.MapActivity;
 
 /**
@@ -25,7 +26,7 @@ public class PcFragment extends Fragment implements View.OnClickListener {
 
             /*显示基本地图*/
             rootView.findViewById(R.id.my_map).setOnClickListener(this);
-            rootView.findViewById(R.id.map_gps).setOnClickListener(this);
+            rootView.findViewById(R.id.my_friend).setOnClickListener(this);
             rootView.findViewById(R.id.map_network).setOnClickListener(this);
             rootView.findViewById(R.id.map_sensor_source).setOnClickListener(this);
             rootView.findViewById(R.id.map_source).setOnClickListener(this);
@@ -45,7 +46,8 @@ public class PcFragment extends Fragment implements View.OnClickListener {
             case R.id.my_map:
                 startActivity(new Intent(getActivity(), MapActivity.class));
                 break;
-            case R.id.map_gps:
+            case R.id.my_friend:
+                startActivity(new Intent(getActivity(), FriendActivity.class));
                 break;
             case R.id.map_network:
                 break;

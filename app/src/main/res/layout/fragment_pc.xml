@@ -19,13 +19,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/map_gps"
+        android:id="@+id/my_friend"
         style="@style/vertical_item">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LocationGPS-Map"
+            android:text="我的好友"
             android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_mid_size" />
     </LinearLayout>

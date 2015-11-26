@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.aya.news.ayanews.R;
 import com.aya.news.ayanews.common.ToastUtils;
@@ -50,12 +51,10 @@ public class ReadFragment extends Fragment {
     public abstract class MyResultCallback<T> extends ResultCallback<T> {
         @Override
         public void onError(Request request, Exception e) {
-            ToastUtils.show(getActivity(), "loading...");
         }
 
         @Override
         public void onResponse(T response) {
-            ToastUtils.show(getActivity(), "okhttp");
         }
     }
 
@@ -73,8 +72,8 @@ public class ReadFragment extends Fragment {
                     public void onResponse(String str) {
                         if (Film.getFilms(str) != null) {
                             filmList.addAll(Film.getFilms(str));
+                            adapter.notifyDataSetChanged();
                         }
-                        ToastUtils.show(getActivity(), filmList.get(0).getPic());
                     }
                 });
     }
@@ -82,7 +81,7 @@ public class ReadFragment extends Fragment {
     private class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmHolder> {
         @Override
         public FilmHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            FilmHolder holder = new FilmHolder(LayoutInflater.from(getActivity()).inflate(R.layout.item_video, null));
+            FilmHolder holder = new FilmHolder(LayoutInflater.from(getActivity()).inflate(R.layout.item_film, null));
             return holder;
         }
 
@@ -90,6 +89,8 @@ public class ReadFragment extends Fragment {
         public void onBindViewHolder(FilmHolder holder, int position) {
             Film film = filmList.get(position);
             Glide.with(getActivity()).load(film.getPic()).into(holder.film_img);
+            holder.author.setText("来自" +film.getAuthor());
+            holder.title.setText( film.getTitle());
         }
 
         @Override
@@ -99,10 +100,14 @@ public class ReadFragment extends Fragment {
 
         class FilmHolder extends RecyclerView.ViewHolder {
             ImageView film_img;
+            TextView author;
+            TextView title;
 
             public FilmHolder(View view) {
                 super(view);
-                film_img = (ImageView) view.findViewById(R.id.video_view);
+                film_img = (ImageView) view.findViewById(R.id.film_img);
+                author = (TextView) view.findViewById(R.id.film_author);
+                title = (TextView) view.findViewById(R.id.film_title);
             }
         }
     }

@@ -89,7 +89,10 @@
             android:name=".ui.activity.MapActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ui.activity.FriendActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
 
 
         <!-- Required SDK核心功能-->
